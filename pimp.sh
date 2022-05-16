@@ -125,46 +125,63 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
 
 ##NONE OF THIS WORKS
-<<COMMENT
 
-#media keys to F7 (prev), F8 (play/pause), F9 (next)
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys previous ['F7']
+#media key F7 previous
+#gsettings set org.gnome.settings-daemon.plugins.media-keys previous ['F7']
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys play ['F8']
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys next ['F9']
+
+#media key F8 play/pause
+#gsettings set org.gnome.settings-daemon.plugins.media-keys play ['F8']
+
+#media key F9 next
+#gsettings set org.gnome.settings-daemon.plugins.media-keys next ['F9']
 
 #Volume keys to F10, (mute/unmute), F11 (down), F12(up)
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute ['F10']
+#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute ['F10']
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down ['F11']
+#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down ['F11']
 
-gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up ['F12']
+#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up ['F12']
 
 #microphone mute toggle
-gsettings set org.gnome.settings-daemon.plugins.media-keys mic-mute ['Pause']
+#gsettings set org.gnome.settings-daemon.plugins.media-keys mic-mute ['Pause']
 
 
 
-#switch workspaces
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Up']
+#switch workspaces left
+#gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Up']
 
-gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Down']
+#sudo sed -i '/<key name="switch-to-workspace-left" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>Page_Up','\<Super\>\<Alt\>Left','\<Control\>\<Alt\>Left'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
 
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left ['<Shift><Control>Page_Up']
+#switch workspaces right
+#gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Down']
 
-gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right ['<Shift><Control>Page_Down']
+#sudo sed -i '/<key name="switch-to-workspace-right" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>Page_Down','\<Super\>\<Alt\>Right','\<Control\>\<Alt\>Right'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
+
+#move current window a workspace to the left
+#gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left ['<Shift><Control>Page_Up']
+
+#sudo sed -i '/<key name="switch-to-workspace-left" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>\<Shift\>Page_Up','\<Super\>\<Shift\>\<Alt\>Left','\<Control\>\<Shift\>\<Alt\>Left'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
+
+#move current window a workspace to the right
+#gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right ['<Shift><Control>Page_Down']
+
+#sudo sed -i '/<key name="switch-to-workspace-right" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>\<Shift\>Page_Down','\<Super\>\<Shift\>\<Alt\>Right','\<Control\>\<Shift\>\<Alt\>Right'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
 
 
 #control q to quit
-gsettings set org.gnome.Terminal.Legacy.Keybindings close-window '<Control><Shift>q'
+#gsettings set org.gnome.Terminal.Legacy.Keybindings close-window '<Control><Shift>q'
 
 #open terminal with ctrl alt t
-gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Primary><Alt>t']"
+#gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Primary><Alt>t']"
 
-COMMENT
+#compile all these settings and update
+#sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+
+
 
 #launch gnome settings
 
