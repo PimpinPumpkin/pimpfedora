@@ -49,7 +49,7 @@ sudo cp -a Google-sans /usr/share/fonts
 #install flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-flatpak install flathub com.mattjakeman.ExtensionManager
+flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub io.freetubeapp.FreeTube
 flatpak install -y flathub com.spotify.Client
 flatpak install -y flathub com.bitwarden.desktop
