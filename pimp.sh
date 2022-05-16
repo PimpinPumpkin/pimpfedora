@@ -42,6 +42,7 @@ cd ../
 rm -rf $PWD/adw-gtk3
 
 #Make lockscreen 200 percent scaled
+#https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
 sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
 
 sudo glib-compile-schemas /usr/share/glib-2.0/schemas
