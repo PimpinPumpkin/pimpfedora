@@ -1,0 +1,88 @@
+!!!!Before you nuke:
+
+Backup to other disk:
+Freetube
+uBlock Origin
+Vimium C
+Cookie AutoDelete config and expressions
+Signal database (I think this is in ~/.var/app)
+Brave settings (~/.var/app and ~/.config)
+Firefox settings (~/.mozilla)
+Webcam photos
+Music
+
+Unplug all other disks!
+
+
+Configure environment:
+
+Set power mode to performance 
+Set your computer sharing name
+Set your default applications
+set up all function key media controls
+ -volume up, down, and mute toggle
+ -previous, next, and play/pause toggle
+ -microphone mute toggle
+control + page down to move to workspace on the right
+control + page up to move to workspace on the left
+shift control page up to move window one workspace to the left
+shift control page down to move window one workspace to the right
+close window control q
+
+
+
+Gnome extensions:
+
+Pop Shell - remove borders
+Tray Icons Reloaded - set the margins and icon padding to zero. If needed we can set the icon size to 20 and set a limit of four icons
+Just perfection
+ -profile
+  - override shell theme
+  -disable preferences intro
+ -visibility
+  -accessibility menu
+  -world clock
+  -weather
+  -events
+ -icons
+  -app menu icon
+  -power icon
+  -activities button icon: /usr/share/icons/Adwaita/scalable/actions/view-grid-symbolic.svg
+  -activities button with icon label.
+ -Behavior
+  -window demands attention focus
+  -Startup status: show desktop.
+ -Customize
+  -animation: faster
+  -dash icon size: 48px
+Caffeine -disable notifications
+GTK Title Bar by velitasali.github.io - always hide title bars
+GSConnect - Enable pausing of media while on a call. Use KDEConnect on phone to configure the media player among other things.
+Blur my shell
+gnome fuzzy app search
+
+Dock order:
+
+Files - zoom out on the icons
+Freetube - you can change the icon with alacarte
+Spotify
+Brave
+Signal
+Standard Notes
+Tutanota - use appimage, and install it in ~/Apps. Configure desktop integration and startup behavior within the app
+Bitwarden
+Software center
+LBRY - disable downloading of videos while watching
+
+
+
+Brave extensions:
+
+ublock origin
+cookie auto delete
+dark reader
+rescroller
+vimium c
+sponsorblock
+return youtube dislikes
+
