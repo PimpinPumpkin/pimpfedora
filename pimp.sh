@@ -62,6 +62,7 @@ flatpak install -y flathub org.gnome.Cheese
 
 
 #signal auto-start
+mkdir ~/.config/autostart
 
 echo "[Desktop Entry]
 Name=Start Signal in Tray
