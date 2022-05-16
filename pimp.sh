@@ -1,18 +1,18 @@
 #!/bin/bash
 #First written on May 15th, 2022. Currently using Fedora Workstation 36.
 
-#Computer name is Reaper
-#Power mode set to performance
+#Computer name needs to be set
+#Power mode needs to be set to performance
 #Default applications
 #extensions
 
 
 #enable RPM Fusion
 echo Enabling RPM Fusion
-sudo dnf install \
+sudo dnf install -y \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
   
-sudo dnf install \
+sudo dnf install -y \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
  
 echo RPM Fusion enabled 
@@ -20,15 +20,15 @@ echo Installing dependencies
 
 #Install dependencies for shit I know I need
 
-sudo dnf install ninja-build
-sudo dnf install git
-sudo dnf install meson
-sudo dnf install sassc
-sudo dnf install x264
-sudo dnf install ffmpeg
-sudo dnf install gstreamer1-libav
-sudo dnf install openssl
-sudo dnf install gnome-shell-extension-pop-shell xprop
+sudo dnf install -y ninja-build
+sudo dnf install -y git
+sudo dnf install -y meson
+sudo dnf install -y sassc
+sudo dnf install -y x264
+sudo dnf install -y ffmpeg
+sudo dnf install -y gstreamer1-libav
+sudo dnf install -y openssl
+sudo dnf install -y gnome-shell-extension-pop-shell xprop
 
 echo Dependencies installed successfully
 echo Installing Legacy GTK4 theme
@@ -51,13 +51,13 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 flatpak install flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub io.freetubeapp.FreeTube
-flatpak install flathub com.spotify.Client
-flatpak install flathub com.bitwarden.desktop
-flatpak install flathub com.brave.Browser
-flatpak install flathub org.signal.Signal
-flatpak install flathub org.standardnotes.standardnotes
-flatpak install flathub io.bassi.Amberol
-flatpak install flathub com.github.rafostar.Clapper
+flatpak install -y flathub com.spotify.Client
+flatpak install -y flathub com.bitwarden.desktop
+flatpak install -y flathub com.brave.Browser
+flatpak install -y flathub org.signal.Signal
+flatpak install -y flathub org.standardnotes.standardnotes
+flatpak install -y flathub io.bassi.Amberol
+flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.Cheese
 
 
