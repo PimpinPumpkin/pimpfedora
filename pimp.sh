@@ -30,6 +30,7 @@ sudo dnf install -y gstreamer1-libav
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
+sudo dnf install -y alacarte
 
 echo Dependencies installed successfully
 echo Installing Legacy GTK4 theme
