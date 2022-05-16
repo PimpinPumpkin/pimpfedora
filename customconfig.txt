@@ -55,20 +55,19 @@ Just perfection
  -Customize
   -animation: faster
   -dash icon size: 48px
-Caffeine -disable notifications
+Caffeine -disable notifications, and disable fullscreen enable
 GTK Title Bar by velitasali.github.io - always hide title bars
 GSConnect - Enable pausing of media while on a call. Use KDEConnect on phone to configure the media player among other things.
 Blur my shell
 gnome fuzzy app search
-Lock screen background by sun_wang
-  -pick a wallpaper stored in /usr/share/backgrounds
+
 
 
 Dock order:
 
-Files - zoom out on the icons
+Files - zoom out on the icons, set icons from everywhere
 Freetube - you can change the icon with alacarte
-Spotify
+Spotify - set high quality audio
 Brave
 Signal
 Standard Notes
