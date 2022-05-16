@@ -31,6 +31,7 @@ sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
 sudo dnf install -y alacarte
+sudo dnf remove -y gnome-extensions-app
 
 echo Dependencies installed successfully
 echo Installing Legacy GTK4 theme
@@ -66,7 +67,8 @@ flatpak install -y flathub org.signal.Signal
 flatpak install -y flathub org.standardnotes.standardnotes
 flatpak install -y flathub io.bassi.Amberol
 flatpak install -y flathub com.github.rafostar.Clapper
-flatpak install -y flathub org.gnome.Cheese
+#flatpak install -y flathub org.gnome.Cheese
+flatpak install -y flathub io.lbry.lbry-app
 
 
 #signal auto-start and config
@@ -187,5 +189,5 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
 #launch gnome settings
 
-gnome-control-center < /dev/null &
+#gnome-control-center < /dev/null &
 
