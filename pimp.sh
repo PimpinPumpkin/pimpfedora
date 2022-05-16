@@ -61,7 +61,7 @@ flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.Cheese
 
 
-#signal auto-start
+#signal auto-start and config
 mkdir ~/.config/autostart
 
 echo "[Desktop Entry]
@@ -72,6 +72,8 @@ Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop
 Terminal=false
 Type=Application
 X-GNOME-Autostart-enabled=true" > ~/.config/autostart/org.signal.Signal.desktop
+
+sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
 
 
 #move window control to the left
