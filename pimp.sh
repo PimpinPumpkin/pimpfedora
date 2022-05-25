@@ -31,8 +31,8 @@ sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
 sudo dnf install -y alacarte
-sudo dnf install -y glib2-devel
-sudo dnf install -y dconf
+#sudo dnf install -y glib2-devel
+#sudo dnf install -y dconf
 sudo dnf remove -y gnome-extensions-app
 
 echo Dependencies installed successfully
@@ -206,15 +206,16 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 #gnome-control-center < /dev/null &
 
 
+#Installing GDM-tools is not really neccesary because we have the gui application which does more
 #Install gdm-tools
-git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
+#git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
 ./gdm-tools/install.sh
 
-rm -rf $PWD/gdm-tools
+#rm -rf $PWD/gdm-tools
 
-set-gdm-theme set default /usr/share/backgrounds/gnome/blobs-d.svg
+#set-gdm-theme set default /usr/share/backgrounds/gnome/blobs-d.svg
 
-gnomeconf2gdm
+#gnomeconf2gdm
 
-sudo rm /etc/dconf/db/gdm.d/99-gnomeconf2gdm
+#sudo rm /etc/dconf/db/gdm.d/99-gnomeconf2gdm
 
