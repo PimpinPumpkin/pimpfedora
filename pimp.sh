@@ -209,7 +209,7 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 #Installing GDM-tools is not really neccesary because we have the gui application which does more
 #Install gdm-tools
 #git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
-./gdm-tools/install.sh
+#./gdm-tools/install.sh
 
 #rm -rf $PWD/gdm-tools
 
