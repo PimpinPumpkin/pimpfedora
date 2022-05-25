@@ -208,6 +208,10 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 #Install gdm-tools
 git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
 ./gdm-tools/install.sh
+
 rm -rf $PWD/gdm-tools
+
 set-gdm-theme set default /usr/share/backgrounds/gnome/blobs-d.svg
+
+gnomeconf2gdm
 
