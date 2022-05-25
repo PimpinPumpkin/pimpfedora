@@ -72,6 +72,7 @@ flatpak install -y flathub com.github.rafostar.Clapper
 #flatpak install -y flathub org.gnome.Cheese
 flatpak install -y flathub io.lbry.lbry-app
 flatpak install -y flathub org.gnome.World.PikaBackup
+flatpak install -y flathub io.github.realmazharhussain.GdmSettings
 
 
 #signal auto-start and config
