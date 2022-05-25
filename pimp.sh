@@ -215,3 +215,5 @@ set-gdm-theme set default /usr/share/backgrounds/gnome/blobs-d.svg
 
 gnomeconf2gdm
 
+sudo rm /etc/dconf/db/gdm.d/99-gnomeconf2gdm
+
