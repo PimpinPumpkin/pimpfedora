@@ -38,6 +38,9 @@ sudo dnf remove -y gnome-tour
 sudo dnf remove -y gnome-maps
 sudo dnf remove -y gnome-contacts
 sudo dnf remove -y mediawriter
+sudo dnf remove -y gnome-photos
+sudo dnf remove -y rhythmbox
+sudo dnf remove -y totem
 
 echo Dependencies installed successfully
 echo Installing Legacy GTK4 theme
