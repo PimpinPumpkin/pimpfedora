@@ -34,6 +34,10 @@ sudo dnf install -y alacarte
 #sudo dnf install -y glib2-devel
 #sudo dnf install -y dconf
 sudo dnf remove -y gnome-extensions-app
+sudo dnf remove -y gnome-tour
+sudo dnf remove -y gnome-maps
+sudo dnf remove -y gnome-contacts
+sudo dnf remove -y mediawriter
 
 echo Dependencies installed successfully
 echo Installing Legacy GTK4 theme
