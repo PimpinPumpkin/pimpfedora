@@ -93,6 +93,16 @@ sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/ap
 
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close:appmenu'
 
+
+#if for some reason you want to have maximize and minimize buttons also on the left, it would be:
+
+#gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:appmenu'
+
+#or on the right:
+
+#gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+
+
 #change fonts
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
@@ -193,4 +203,9 @@ gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 #launch gnome settings
 
 #gnome-control-center < /dev/null &
+
+
+#Install gdm-tools
+git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
+./gdm-tools/install.sh
 
