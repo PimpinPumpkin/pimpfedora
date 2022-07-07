@@ -150,6 +150,10 @@ gsettings set org.gnome.desktop.session idle-delay 900
 gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
+#download openGL script
+git clone https://github.com/sukhmeetbawa/OpenCL-AMD-Fedora.git ~/Downloads/OpenCL-AMD-Fedora
+
+./OpenCL-AMD-Fedora/opencl-amd.sh
 
 
 ##NONE OF THIS WORKS
