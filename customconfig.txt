@@ -87,4 +87,6 @@ rescroller
 vimium c
 sponsorblock
 return youtube dislikes
+tampermonkey
+  -youtube age restriction bypass script: https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/
 
