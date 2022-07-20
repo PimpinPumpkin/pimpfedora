@@ -78,7 +78,8 @@ flatpak install -y flathub com.bitwarden.desktop
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
 flatpak install -y flathub org.standardnotes.standardnotes
-flatpak install -y flathub io.bassi.Amberol
+#flatpak install -y flathub io.bassi.Amberol
+#flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 #flatpak install -y flathub org.gnome.Cheese
 flatpak install -y flathub io.lbry.lbry-app
