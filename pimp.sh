@@ -32,7 +32,7 @@ sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
 sudo dnf install -y alacarte
 sudo dnf install -y pavucontrol
-sudo dnf install -y rpm2cpio
+#sudo dnf install -y rpm2cpio
 sudo dnf install -y alsa-plugins-pulseaudio
 sudo dnf install -y mpv
 #sudo dnf install -y glib2-devel
