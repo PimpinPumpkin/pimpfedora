@@ -18,6 +18,11 @@ sudo dnf install -y \
 echo RPM Fusion enabled 
 echo Installing dependencies
 
+#Install Google GPG key
+wget https://dl.google.com/linux/linux_signing_key.pub
+sudo rpm --import linux_signing_key.pub
+rm linux_signing_key.pub
+
 #Install dependencies for shit I know I need
 
 sudo dnf install -y ninja-build
