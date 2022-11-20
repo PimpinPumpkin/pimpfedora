@@ -22,11 +22,13 @@ echo Installing dependencies
 #Add hardware video acceleration (RPMFusion must be enabled)
 #https://github.com/rpmfusion-infra/fedy/issues/110#issuecomment-1311268988
 
-sudo dnf install mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld
+#you could use this if mesa-va and or mesa-vdpau are not already installed:
+#sudo dnf install mesa-va-drivers-freeworld 
+#sudo dnf install mesa-vdpau-drivers-freeworld
 
-#If mesa-va and or mesa-vdpau is already enabled, then use these
-#sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
-#sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+#swap out the old drivers with the HW-accelerated ones
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
 #install non-hardware codecs
 sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
