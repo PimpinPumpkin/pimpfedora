@@ -28,7 +28,8 @@ echo Installing dependencies
 
 #swap out the old drivers with the HW-accelerated ones
 sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
-sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+#commenting out this next line because it wasn't installed by default on my system already:
+#sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
 #install non-hardware codecs
 sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
