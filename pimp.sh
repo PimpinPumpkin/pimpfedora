@@ -1,5 +1,5 @@
 #!/bin/bash
-#First written on May 15th, 2022. Currently using Fedora Workstation 36.
+#First written on May 15th, 2022. Currently using Fedora Workstation 37.
 
 #Computer name needs to be set
 #Power mode needs to be set to performance
@@ -18,6 +18,25 @@ sudo dnf install -y \
 echo RPM Fusion enabled 
 echo Installing dependencies
 
+-------------
+#Add hardware video acceleration (RPMFusion must be enabled)
+#https://github.com/rpmfusion-infra/fedy/issues/110#issuecomment-1311268988
+
+sudo dnf install mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld
+
+#If mesa-va and or mesa-vdpau is already enabled, then use these
+#sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+#sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+
+#install non-hardware codecs
+sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf groupupdate sound-and-video
+sudo dnf install @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
+flatpak install flathub org.freedesktop.Platform.ffmpeg-full
+
+------------
+
+
 #Install Google GPG key
 wget https://dl.google.com/linux/linux_signing_key.pub
 sudo rpm --import linux_signing_key.pub
@@ -30,8 +49,8 @@ sudo dnf install -y git
 sudo dnf install -y meson
 sudo dnf install -y sassc
 sudo dnf install -y x264
-sudo dnf install -y ffmpeg
-sudo dnf install -y gstreamer1-libav
+#sudo dnf install -y ffmpeg
+#sudo dnf install -y gstreamer1-libav
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
