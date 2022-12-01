@@ -130,7 +130,7 @@ Comment=Start Signal in Tray
 Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop --file-forwarding org.signal.Signal @@u %U @@ --start-in-tray
 Terminal=false
 Type=Application
-X-GNOME-Autostart-enabled=true" > ~/.config/autostart/org.signal.Signal.desktop
+X-GNOME-Autostart-enabled=true" > /home/$SUDO_USER/.config/autostart/org.signal.Signal.desktop
 
 sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
 
