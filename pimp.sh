@@ -23,7 +23,7 @@ echo Installing dependencies
 sudo dnf copr enable -y calcastor/gnome-patched
 sudo dnf --refresh upgrade -y
 
--------------
+#-------------
 #Add hardware video acceleration (RPMFusion must be enabled)
 #https://github.com/rpmfusion-infra/fedy/issues/110#issuecomment-1311268988
 
@@ -32,7 +32,7 @@ sudo dnf --refresh upgrade -y
 #sudo dnf install mesa-vdpau-drivers-freeworld
 
 #swap out the old drivers with the HW-accelerated ones
-sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
 #commenting out this next line because it wasn't installed by default on my system already:
 #sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
@@ -42,7 +42,7 @@ sudo dnf groupupdate sound-and-video
 sudo dnf install @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
 flatpak install flathub org.freedesktop.Platform.ffmpeg-full
 
-------------
+#------------
 
 
 #Install Google GPG key
