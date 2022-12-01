@@ -37,10 +37,10 @@ sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
 #sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
 #install non-hardware codecs
-sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf groupupdate sound-and-video
-sudo dnf install @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
-flatpak install flathub org.freedesktop.Platform.ffmpeg-full
+sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+sudo dnf groupupdate -y sound-and-video
+sudo dnf install -y @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
+flatpak install -y flathub org.freedesktop.Platform.ffmpeg-full
 
 #------------
 
