@@ -20,7 +20,7 @@ echo RPM Fusion enabled
 echo Installing dependencies
 
 #Install triple buffering patch from COPR
-sudo dnf copr enable calcastor/gnome-patched
+sudo dnf copr enable -y calcastor/gnome-patched
 sudo dnf --refresh upgrade
 
 -------------
