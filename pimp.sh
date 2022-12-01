@@ -121,7 +121,7 @@ flatpak install -y flathub io.github.realmazharhussain.GdmSettings
 
 
 #signal auto-start and config
-mkdir ~/.config/autostart
+sudo mkdir ~/.config/autostart
 
 echo "[Desktop Entry]
 Name=Start Signal in Tray
@@ -137,7 +137,7 @@ sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/ap
 
 #move window control to the left
 
-gsettings set org.gnome.desktop.wm.preferences button-layout 'close:appmenu'
+#gsettings set org.gnome.desktop.wm.preferences button-layout 'close:appmenu'
 
 
 #if for some reason you want to have maximize and minimize buttons also on the left, it would be:
@@ -186,9 +186,9 @@ gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
 #download openGL script
-git clone https://github.com/sukhmeetbawa/OpenCL-AMD-Fedora.git ~/Downloads/OpenCL-AMD-Fedora
+#git clone https://github.com/sukhmeetbawa/OpenCL-AMD-Fedora.git ~/Downloads/OpenCL-AMD-Fedora
 
-./OpenCL-AMD-Fedora/opencl-amd.sh
+#./OpenCL-AMD-Fedora/opencl-amd.sh
 
 
 ##NONE OF THIS WORKS
