@@ -5,6 +5,7 @@
 #Power mode needs to be set to performance
 #Default applications
 #extensions
+#if you're on a laptop, install gesture improvements extension, and forego pop-shell
 
 
 #enable RPM Fusion
@@ -17,6 +18,10 @@ sudo dnf install -y \
  
 echo RPM Fusion enabled 
 echo Installing dependencies
+
+#Install triple buffering patch from COPR
+sudo dnf copr enable calcastor/gnome-patched
+sudo dnf --refresh upgrade
 
 -------------
 #Add hardware video acceleration (RPMFusion must be enabled)
