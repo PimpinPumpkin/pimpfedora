@@ -42,6 +42,18 @@ gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
 #Enable more parallel DNF downloads (bad if internet is slow)
 echo max_parallel_downloads=10 | sudo tee --append /etc/dnf/dnf.conf
 
+#Add VSCodium repo
+sudo tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
+[gitlab.com_paulcarroty_vscodium_repo]
+name=gitlab.com_paulcarroty_vscodium_repo
+baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+metadata_expire=1h
+EOF
+
 #Enable RPM Fusion free and non-free
 sudo dnf install -y \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -62,6 +74,7 @@ sudo rm google_earth_pro.rpm
 
 #Install known dependencies 
 sudo dnf install -y git
+sudo dnf install -y codium
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
