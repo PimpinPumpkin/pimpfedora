@@ -48,6 +48,7 @@ Just perfection
   -app menu icon
   -power icon
   -activities button icon: /usr/share/icons/Adwaita/scalable/actions/view-grid-symbolic.svg
+      -alt location on F38: /usr/share/icons/Adwaita/symbolic/actions/view-grid-symbolic.svg
   -activities button with icon label.
  -Behavior
   -window demands attention focus
@@ -60,6 +61,7 @@ GTK Title Bar by velitasali.github.io - always hide title bars
 GSConnect - Enable pausing of media while on a call. Use KDEConnect on phone to configure the media player among other things.
 Blur my shell
 gnome fuzzy app search
+gesture improvements
 
 
 
