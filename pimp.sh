@@ -52,16 +52,16 @@ sudo dnf install -y \
 sudo dnf copr enable -y calcastor/gnome-patched
 sudo dnf --refresh upgrade -y
 
-#Install Google GPG key (for when installing Google Earth)
+#Install Google GPG key and Google Earth
 wget https://dl.google.com/linux/linux_signing_key.pub
 sudo rpm --import linux_signing_key.pub
 rm linux_signing_key.pub
+curl https://dl.google.com/dl/earth/client/current/google-earth-stable_current_x86_64.rpm --output google_earth.rpm
+sudo dnf localinstall -y google_earth.rpm
+sudo rm google_earth.rpm
 
 #Install known dependencies 
-sudo dnf install -y ninja-build #adw
 sudo dnf install -y git
-sudo dnf install -y meson #adw3-gtk
-sudo dnf install -y sassc #adw3-gtk
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
