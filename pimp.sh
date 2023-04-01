@@ -72,8 +72,7 @@ sudo dnf install -y webp-pixbuf-loader #enables webp images in gnome-sushi
 sudo dnf install -y libheif #enables HEIF images in gnome-sushi 
 sudo dnf install -y alacarte
 sudo dnf install -y pavucontrol
-sudo dnf install -y alsa-plugins-pulseaudio
-sudo dnf install -y mpv
+sudo dnf install -y alsa-plugins-pulseaudio #fixes Davinci Resolve audio lag
 sudo dnf install -y glib2-devel #gdm-settings
 sudo dnf install -y java-11-openjdk #JNLP IcedTea
 sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
@@ -87,6 +86,7 @@ sudo dnf remove -y rhythmbox
 sudo dnf remove -y totem
 
 #Install adw3-gtk theme
+flatpak install -y org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 git clone https://github.com/lassekongo83/adw-gtk3.git
 cd adw-gtk3
 meson build
