@@ -54,6 +54,14 @@ gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
 metadata_expire=1h
 EOF
 
+#Install Powershell Prerecs
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+VERSION=$(cat /etc/fedora-release | grep -o '[0-9]' | awk '{printf "%s", $0}')
+MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsoft-prod.rpm
+curl $MSPKGRPM --output MSPKGRPM.rpm
+sudo dnf localinstall -y MSPKGRPM.rpm
+sudo rm MSPKGRPM.rpm
+
 #Enable RPM Fusion free and non-free
 sudo dnf install -y \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
@@ -74,6 +82,7 @@ sudo rm google_earth_pro.rpm
 
 #Install known dependencies 
 sudo dnf install -y git
+sudo dnf install -y powershell
 sudo dnf install -y codium
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
