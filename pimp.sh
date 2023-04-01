@@ -56,7 +56,7 @@ sudo dnf --refresh upgrade -y
 wget https://dl.google.com/linux/linux_signing_key.pub
 sudo rpm --import linux_signing_key.pub
 rm linux_signing_key.pub
-curl https://dl.google.com/dl/earth/client/current/google-earth-stable_current_x86_64.rpm --output google_earth.rpm
+curl https://dl.google.com/dl/linux/direct/google-earth-pro-stable-current.x86_64.rpm --output google_earth.rpm
 sudo dnf localinstall -y google_earth.rpm
 sudo rm google_earth.rpm
 
