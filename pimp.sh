@@ -1,27 +1,143 @@
 #!/bin/bash
-#First written on May 15th, 2022. Currently using Fedora Workstation 37.
+#First written on May 15th, 2022. Currently using Fedora Workstation 38 on x64 hardware.
 
+#App date must be imported
 #Computer name needs to be set
 #Power mode needs to be set to performance
 #Default applications
-#extensions
-#if you're on a laptop, install gesture improvements extension, and forego pop-shell
+#Extensions configuration
+#Keyboard shortcuts configuration
+#if you're on a laptop, install gesture improvements extension
 
+#Make lockscreen 200% scaled
+#https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
+sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
+sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
-#enable RPM Fusion
-echo Enabling RPM Fusion
+#Set natural scrolling
+gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
+gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
+
+#Set dark theme
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
+#Change clock to AM/PM
+gsettings set org.gnome.desktop.interface clock-format '12h'
+gsettings set org.gtk.Settings.FileChooser clock-format '12h'
+gsettings set org.gtk.gtk4.Settings.FileChooser clock-format '12h'
+
+#Change the locking settings
+gsettings set org.gnome.desktop.session idle-delay 900
+gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
+gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
+
+#Install and set fonts
+sudo cp -a Google-sans /usr/share/fonts
+sudo cp -a SourceCode-Pro /usr/share/fonts
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
+gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
+
+#Enable more parallel DNF downloads (bad if internet is slow)
+echo max_parallel_downloads=10 | sudo tee --append /etc/dnf/dnf.conf
+
+#Enable RPM Fusion free and non-free
 sudo dnf install -y \
   https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-  
 sudo dnf install -y \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
- 
-echo RPM Fusion enabled 
-echo Installing dependencies
 
 #Install triple buffering patch from COPR
 sudo dnf copr enable -y calcastor/gnome-patched
 sudo dnf --refresh upgrade -y
+
+#Install Google GPG key (for when installing Google Earth)
+wget https://dl.google.com/linux/linux_signing_key.pub
+sudo rpm --import linux_signing_key.pub
+rm linux_signing_key.pub
+
+#Install known dependencies 
+sudo dnf install -y ninja-build #adw
+sudo dnf install -y git
+sudo dnf install -y meson #adw3-gtk
+sudo dnf install -y sassc #adw3-gtk
+sudo dnf install -y x264 #enables video in gnome-sushi
+sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
+sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
+sudo dnf install -y openssl
+sudo dnf install -y gnome-shell-extension-pop-shell xprop
+sudo dnf install -y nautilus-image-converter
+sudo dnf install -y webp-pixbuf-loader #enables webp images in gnome-sushi
+sudo dnf install -y libheif #enables HEIF images in gnome-sushi 
+sudo dnf install -y alacarte
+sudo dnf install -y pavucontrol
+sudo dnf install -y alsa-plugins-pulseaudio
+sudo dnf install -y mpv
+sudo dnf install -y glib2-devel #gdm-settings
+sudo dnf install -y java-11-openjdk #JNLP IcedTea
+sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
+sudo dnf install -y firefox
+sudo dnf remove -y gnome-extensions-app
+sudo dnf remove -y gnome-tour
+sudo dnf remove -y gnome-maps
+sudo dnf remove -y gnome-contacts
+sudo dnf remove -y gnome-photos
+sudo dnf remove -y rhythmbox
+sudo dnf remove -y totem
+
+#Install adw3-gtk theme
+git clone https://github.com/lassekongo83/adw-gtk3.git
+cd adw-gtk3
+meson build
+sudo ninja -C build install
+cd ../
+rm -rf adw-gtk3
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+
+#Set pop-shell gaps to zero 
+gsettings set org.gnome.shell.extensions.pop-shell gap-inner uint32 0
+
+#Install Flatpaks (Fedora 38 enables Flathub by default)
+flatpak install -y flathub com.mattjakeman.ExtensionManager
+flatpak install -y flathub com.spotify.Client
+flatpak install -y flathub com.bitwarden.desktop
+flatpak install -y flathub com.brave.Browser
+flatpak install -y flathub org.signal.Signal
+flatpak install -y flathub org.standardnotes.standardnotes
+flatpak install -y flathub com.github.neithern.g4music
+flatpak install -y flathub com.github.rafostar.Clapper
+flatpak install -y flathub org.gnome.World.PikaBackup
+flatpak install -y io.github.realmazharhussain.GdmSettings
+flatpak install -y flathub io.github.seadve.Mousai
+flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
+
+#Signal auto-start and .desktop config
+if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
+sudo mkdir -p ~/.config/autostart
+sudo echo "[Desktop Entry]
+Name=Start Signal in Tray
+GenericName=signal-start
+Comment=Start Signal in Tray
+Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop --file-forwarding org.signal.Signal @@u %U @@ --start-in-tray
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true" | sudo tee --append /home/$USER/.config/autostart/org.signal.Signal.desktop
+fi
+
+#Check if Signal Flatpak is installed
+if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
+	#If so, make sure we haven't already patched the .desktop file before we attempt to add the --use-tray-icon argument
+	if ! [ grep -q "%U @@ --use-tray-icon" '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
+    		#Configure Signal to use tray icon if manually launched
+    		sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+	fi
+fi
+
+#Install Iced-Tea for JNLP files/ConnectWise
+curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
+sudo dnf localinstall -y icedtea.rpm
+sudo rm icedtea.rpm
 
 #-------------
 #Add hardware video acceleration (RPMFusion must be enabled)
@@ -32,240 +148,14 @@ sudo dnf --refresh upgrade -y
 #sudo dnf install mesa-vdpau-drivers-freeworld
 
 #swap out the old drivers with the HW-accelerated ones
-sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
+#sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
 #commenting out this next line because it wasn't installed by default on my system already:
 #sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
 #install non-hardware codecs
-sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
-sudo dnf groupupdate -y sound-and-video
-sudo dnf install -y @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
-flatpak install -y flathub org.freedesktop.Platform.ffmpeg-full
+#sudo dnf groupupdate -y multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin
+#sudo dnf groupupdate -y sound-and-video
+#sudo dnf install -y @multimedia @sound-and-video ffmpeg-libs gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav lame\*
+#flatpak install -y flathub org.freedesktop.Platform.ffmpeg-full
 
 #------------
-
-
-#Install Google GPG key
-wget https://dl.google.com/linux/linux_signing_key.pub
-sudo rpm --import linux_signing_key.pub
-rm linux_signing_key.pub
-
-#Install dependencies for shit I know I need
-
-sudo dnf install -y ninja-build
-sudo dnf install -y git
-sudo dnf install -y meson
-sudo dnf install -y sassc
-sudo dnf install -y x264
-#sudo dnf install -y ffmpeg
-#sudo dnf install -y gstreamer1-libav
-sudo dnf install -y openssl
-sudo dnf install -y gnome-shell-extension-pop-shell xprop
-sudo dnf install -y nautilus-image-converter
-sudo dnf install -y webp-pixbuf-loader
-sudo dnf install -y libheif
-sudo dnf install -y alacarte
-sudo dnf install -y pavucontrol
-#sudo dnf install -y rpm2cpio
-sudo dnf install -y alsa-plugins-pulseaudio
-sudo dnf install -y mpv
-#sudo dnf install -y glib2-devel
-#sudo dnf install -y dconf
-sudo dnf remove -y gnome-extensions-app
-sudo dnf remove -y gnome-tour
-sudo dnf remove -y gnome-maps
-sudo dnf remove -y gnome-contacts
-sudo dnf remove -y mediawriter
-sudo dnf remove -y gnome-photos
-sudo dnf remove -y rhythmbox
-sudo dnf remove -y totem
-
-echo Dependencies installed successfully
-echo Installing Legacy GTK4 theme
-
-#install adw3-gtk theme
-git clone https://github.com/lassekongo83/adw-gtk3.git
-cd adw-gtk3
-meson build
-sudo ninja -C build install
-cd ../
-rm -rf $PWD/adw-gtk3
-
-#Make lockscreen 200 percent scaled
-#https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
-sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
-
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
-#install fonts
-git clone https://github.com/PimpinPumpkin/pimpfedora36.git
-sudo cp -a Google-sans /usr/share/fonts
-
-
-#install flatpaks
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-flatpak install -y flathub com.mattjakeman.ExtensionManager
-flatpak install -y flathub io.freetubeapp.FreeTube
-flatpak install -y flathub com.spotify.Client
-flatpak install -y flathub com.bitwarden.desktop
-flatpak install -y flathub com.brave.Browser
-flatpak install -y flathub org.signal.Signal
-flatpak install -y flathub org.standardnotes.standardnotes
-#flatpak install -y flathub io.bassi.Amberol
-#flatpak install -y flathub com.github.neithern.g4music
-flatpak install -y flathub com.github.rafostar.Clapper
-#flatpak install -y flathub org.gnome.Cheese
-flatpak install -y flathub io.lbry.lbry-app
-flatpak install -y flathub org.gnome.World.PikaBackup
-flatpak install -y flathub io.github.realmazharhussain.GdmSettings
-
-
-#signal auto-start and config
-sudo mkdir ~/.config/autostart
-
-echo "[Desktop Entry]
-Name=Start Signal in Tray
-GenericName=signal-start
-Comment=Start Signal in Tray
-Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop --file-forwarding org.signal.Signal @@u %U @@ --start-in-tray
-Terminal=false
-Type=Application
-X-GNOME-Autostart-enabled=true" > /home/$SUDO_USER/.config/autostart/org.signal.Signal.desktop
-
-sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-
-
-#move window control to the left
-
-#gsettings set org.gnome.desktop.wm.preferences button-layout 'close:appmenu'
-
-
-#if for some reason you want to have maximize and minimize buttons also on the left, it would be:
-
-#gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:appmenu'
-
-#or on the right:
-
-#gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
-
-
-#change fonts
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
-gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
-
-#set legacy application theme to adw3
-gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-
-#set pop shell gaps to zero 
-gsettings set org.gnome.shell.extensions.pop-shell gap-inner uint32 0
-
-#set natural scrolling
-gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
-gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
-
-#set dark theme
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-
-#set legacy gtk theme to dark
-gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-
-#change clock to AM/PM
-
-gsettings set org.gnome.desktop.interface clock-format '12h'
-
-gsettings set org.gtk.Settings.FileChooser clock-format '12h'
-
-gsettings set org.gtk.gtk4.Settings.FileChooser clock-format '12h'
-
-
-#change the locking settings
-gsettings set org.gnome.desktop.session idle-delay 900
-gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
-gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
-
-#download openGL script
-#git clone https://github.com/sukhmeetbawa/OpenCL-AMD-Fedora.git ~/Downloads/OpenCL-AMD-Fedora
-
-#./OpenCL-AMD-Fedora/opencl-amd.sh
-
-
-##NONE OF THIS WORKS
-
-
-#media key F7 previous
-#gsettings set org.gnome.settings-daemon.plugins.media-keys previous ['F7']
-
-
-
-#media key F8 play/pause
-#gsettings set org.gnome.settings-daemon.plugins.media-keys play ['F8']
-
-#media key F9 next
-#gsettings set org.gnome.settings-daemon.plugins.media-keys next ['F9']
-
-#Volume keys to F10, (mute/unmute), F11 (down), F12(up)
-
-#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute ['F10']
-
-#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down ['F11']
-
-#gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up ['F12']
-
-#microphone mute toggle
-#gsettings set org.gnome.settings-daemon.plugins.media-keys mic-mute ['Pause']
-
-
-
-#switch workspaces left
-#gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Up']
-
-#sudo sed -i '/<key name="switch-to-workspace-left" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>Page_Up','\<Super\>\<Alt\>Left','\<Control\>\<Alt\>Left'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
-
-#switch workspaces right
-#gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-right ['<Control>Page_Down']
-
-#sudo sed -i '/<key name="switch-to-workspace-right" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>Page_Down','\<Super\>\<Alt\>Right','\<Control\>\<Alt\>Right'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
-
-#move current window a workspace to the left
-#gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-left ['<Shift><Control>Page_Up']
-
-#sudo sed -i '/<key name="switch-to-workspace-left" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>\<Shift\>Page_Up','\<Super\>\<Shift\>\<Alt\>Left','\<Control\>\<Shift\>\<Alt\>Left'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
-
-#move current window a workspace to the right
-#gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-right ['<Shift><Control>Page_Down']
-
-#sudo sed -i '/<key name="switch-to-workspace-right" type="as">/{n;s/<default>.*<\/default>/<default><![CDATA[['\<Super\>\<Shift\>Page_Down','\<Super\>\<Shift\>\<Alt\>Right','\<Control\>\<Shift\>\<Alt\>Right'\]\]\]><\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.wm.keybindings.gschema.xml'
-
-
-#control q to quit
-#gsettings set org.gnome.Terminal.Legacy.Keybindings close-window '<Control><Shift>q'
-
-#open terminal with ctrl alt t
-#gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Primary><Alt>t']"
-
-#compile all these settings and update
-#sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
-
-
-#launch gnome settings
-
-#gnome-control-center < /dev/null &
-
-
-#Installing GDM-tools is not really neccesary because we have the gui application which does more
-#Install gdm-tools
-#git clone --depth=1 --single-branch https://github.com/realmazharhussain/gdm-tools.git
-#./gdm-tools/install.sh
-
-#rm -rf $PWD/gdm-tools
-
-#set-gdm-theme set default /usr/share/backgrounds/gnome/blobs-d.svg
-
-#gnomeconf2gdm
-
-#sudo rm /etc/dconf/db/gdm.d/99-gnomeconf2gdm
-
