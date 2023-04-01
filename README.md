@@ -1,2 +1,2 @@
-# pimpfedora37
-Some scripts to automate setting up Fedora to my liking.
+# pimpfedora38
+Some scripts to set up Fedora to my liking.
