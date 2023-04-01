@@ -85,14 +85,10 @@ sudo dnf remove -y gnome-photos
 sudo dnf remove -y rhythmbox
 sudo dnf remove -y totem
 
-#Install adw3-gtk theme
+#Install adw3-gtk dark theme
 flatpak install -y org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
-git clone https://github.com/lassekongo83/adw-gtk3.git
-cd adw-gtk3
-meson build
-sudo ninja -C build install
-cd ../
-rm -rf adw-gtk3
+sudo dnf copr enable -y nickavem/adw-gtk3
+sudo dnf install -y adw-gtk3
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
 #Set pop-shell gaps to zero 
