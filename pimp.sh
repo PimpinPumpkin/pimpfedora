@@ -81,7 +81,6 @@ sudo dnf localinstall -y google_earth_pro.rpm
 sudo rm google_earth_pro.rpm
 
 #Install known dependencies 
-sudo dnf install -y git
 sudo dnf install -y powershell
 sudo dnf install -y codium
 sudo dnf install -y x264 #enables video in gnome-sushi
