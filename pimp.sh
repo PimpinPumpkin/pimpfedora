@@ -32,8 +32,9 @@ gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
 #Install and set fonts
-sudo cp -a Google-sans /usr/share/fonts
-sudo cp -a SourceCode-Pro /usr/share/fonts
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+sudo cp -a $SCRIPT_DIR/Google-sans /usr/share/fonts
+sudo cp -a $SCRIPT_DIR/SourceCode-Pro /usr/share/fonts
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
 gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
