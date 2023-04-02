@@ -61,6 +61,7 @@ MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsof
 curl $MSPKGRPM --output MSPKGRPM.rpm
 sudo dnf localinstall -y MSPKGRPM.rpm
 sudo rm MSPKGRPM.rpm
+sudo dnf upgrade
 
 #Enable RPM Fusion free and non-free
 sudo dnf install -y \
