@@ -57,9 +57,10 @@ EOF
 #Install Powershell Prerecs
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 VERSION=$(cat /etc/fedora-release | grep -o '[0-9]' | awk '{printf "%s", $0}')
-MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsoft-prod.rpm
+#For some reason only the CentOS 8 package works
+#MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsoft-prod.rpm
+MSPKGRPM=https://packages.microsoft.com/config/centos/8/packages-microsoft-prod.rpm
 sudo rpm -Uvh $MSPKGRPM 
-sudo dnf check-update
 
 #Enable RPM Fusion free and non-free
 sudo dnf install -y \
