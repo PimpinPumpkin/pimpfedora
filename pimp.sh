@@ -68,10 +68,6 @@ sudo dnf install -y \
 sudo dnf install -y \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-#Install triple buffering patch from COPR
-sudo dnf copr enable -y calcastor/gnome-patched
-sudo dnf --refresh upgrade -y
-
 #Install Google GPG key and Google Earth
 wget https://dl.google.com/linux/linux_signing_key.pub
 sudo rpm --import linux_signing_key.pub
@@ -155,6 +151,10 @@ fi
 curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
 sudo dnf localinstall -y icedtea.rpm
 sudo rm icedtea.rpm
+
+#Install triple buffering patch from COPR
+sudo dnf copr enable -y calcastor/gnome-patched
+sudo dnf --refresh upgrade -y
 
 #-------------
 #Add hardware video acceleration (RPMFusion must be enabled)
