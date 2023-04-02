@@ -58,10 +58,8 @@ EOF
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 VERSION=$(cat /etc/fedora-release | grep -o '[0-9]' | awk '{printf "%s", $0}')
 MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsoft-prod.rpm
-curl $MSPKGRPM --output MSPKGRPM.rpm
-sudo dnf localinstall -y MSPKGRPM.rpm
-sudo rm MSPKGRPM.rpm
-sudo dnf upgrade
+sudo rpm -Uvh $MSPKGRPM 
+sudo dnf check-update
 
 #Enable RPM Fusion free and non-free
 sudo dnf install -y \
