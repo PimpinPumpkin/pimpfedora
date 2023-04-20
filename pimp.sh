@@ -122,7 +122,8 @@ flatpak install -y flathub org.standardnotes.standardnotes
 flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.World.PikaBackup
-flatpak install -y io.github.realmazharhussain.GdmSettings
+#flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
+flatpak install -y flathub org.chromium.Chromium
 flatpak install -y flathub io.github.seadve.Mousai
 flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
 
