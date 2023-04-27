@@ -89,7 +89,7 @@ sudo dnf install -y nautilus-image-converter
 sudo dnf install -y webp-pixbuf-loader #enables webp images in gnome-sushi
 sudo dnf install -y libheif #enables HEIF images in gnome-sushi 
 #sudo dnf install -y alacarte
-sudo dnf install -y pavucontrol
+#sudo dnf install -y pavucontrol
 sudo dnf install -y alsa-plugins-pulseaudio #fixes Davinci Resolve audio lag
 sudo dnf install -y glib2-devel #gdm-settings
 sudo dnf install -y java-11-openjdk #JNLP IcedTea
@@ -100,6 +100,7 @@ sudo dnf remove -y gnome-tour
 sudo dnf remove -y gnome-maps
 sudo dnf remove -y gnome-contacts
 sudo dnf remove -y gnome-photos
+sudo dnf remove -y gnome-weather
 sudo dnf remove -y rhythmbox
 sudo dnf remove -y totem
 
@@ -125,7 +126,7 @@ flatpak install -y flathub org.gnome.World.PikaBackup
 #flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
 flatpak install -y flathub org.chromium.Chromium
 flatpak install -y flathub io.github.seadve.Mousai
-flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
+#flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
 
 #Signal auto-start and .desktop config
 if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
