@@ -83,6 +83,7 @@ sudo dnf install -y codium
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
+sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 sudo dnf install -y nautilus-image-converter
