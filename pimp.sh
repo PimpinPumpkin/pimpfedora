@@ -96,6 +96,7 @@ sudo dnf install -y glib2-devel #gdm-settings
 sudo dnf install -y java-11-openjdk #JNLP IcedTea
 sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
 sudo dnf install -y firefox
+sudo dnf install -y yt-dlp
 sudo dnf remove -y gnome-extensions-app
 sudo dnf remove -y gnome-tour
 sudo dnf remove -y gnome-maps
