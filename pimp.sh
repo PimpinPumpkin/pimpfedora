@@ -80,6 +80,15 @@ sudo rm google_earth_pro.rpm
 #Install known dependencies 
 sudo dnf install -y powershell
 sudo dnf install -y codium
+
+#Install vscode-powershell
+curl -s https://api.github.com/repos/PowerShell/vscode-powershell/releases/latest \
+| grep "browser_download_url.*vsix" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| xargs curl -L -o vscode-powershell.vsix
+codium --install-extension powershell.vsix
+
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
