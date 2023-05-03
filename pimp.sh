@@ -77,6 +77,9 @@ curl https://dl.google.com/dl/linux/direct/google-earth-pro-stable-current.x86_6
 sudo dnf localinstall -y google_earth_pro.rpm
 sudo rm google_earth_pro.rpm
 
+#Install Librewolf repo
+sudo dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo
+
 #Install known dependencies 
 sudo dnf install -y powershell
 sudo dnf install -y codium
@@ -108,6 +111,7 @@ sudo dnf install -y alsa-plugins-pulseaudio #fixes Davinci Resolve audio lag
 sudo dnf install -y glib2-devel #gdm-settings
 sudo dnf install -y java-11-openjdk #JNLP IcedTea
 sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
+sudo dnf install -y librewolf
 sudo dnf install -y firefox
 sudo dnf install -y yt-dlp
 sudo dnf remove -y gnome-extensions-app
