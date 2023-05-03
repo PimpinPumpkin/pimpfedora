@@ -78,7 +78,7 @@ sudo dnf localinstall -y google_earth_pro.rpm
 sudo rm google_earth_pro.rpm
 
 #Install Librewolf repo
-sudo dnf config-manager --add-repo https://rpm.librewolf.net/librewolf-repo.repo
+sudo dnf config-manager -y --add-repo https://rpm.librewolf.net/librewolf-repo.repo
 
 #Install known dependencies 
 sudo dnf install -y powershell
