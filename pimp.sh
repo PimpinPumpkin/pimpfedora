@@ -89,7 +89,9 @@ curl -s https://api.github.com/repos/PowerShell/vscode-powershell/releases/lates
 | xargs curl -L -o vscode-powershell.vsix
 codium --install-extension vscode-powershell.vsix
 rm vscode-powershell.vsix
+pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
 pwsh -c "Install-Module 'ConnectWiseManageAPI'"
+pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
 sudo dnf install -y x264 #enables video in gnome-sushi
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
