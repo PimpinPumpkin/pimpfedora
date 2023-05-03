@@ -87,7 +87,8 @@ curl -s https://api.github.com/repos/PowerShell/vscode-powershell/releases/lates
 | cut -d : -f 2,3 \
 | tr -d \" \
 | xargs curl -L -o vscode-powershell.vsix
-codium --install-extension powershell.vsix
+codium --install-extension vscode-powershell.vsix
+rm vscode-powershell.vsix
 pwsh -c "Install-Module 'ConnectWiseManageAPI'"
 
 sudo dnf install -y x264 #enables video in gnome-sushi
