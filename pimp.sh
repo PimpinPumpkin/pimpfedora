@@ -125,8 +125,7 @@ sudo dnf remove -y totem
 
 #Install adw3-gtk dark theme
 flatpak install -y org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
-sudo dnf copr enable -y nickavem/adw-gtk3
-sudo dnf install -y adw-gtk3
+sudo dnf install -y adw-gtk3-theme
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 
 #Set pop-shell gaps to zero 
