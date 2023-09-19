@@ -144,10 +144,11 @@ flatpak install -y flathub org.gnome.World.PikaBackup
 flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
 flatpak install -y flathub org.chromium.Chromium
 #flatpak install -y flathub io.github.seadve.Mousai
-#flatpak install -y flathub re.sonny.Junction
+flatpak install -y flathub re.sonny.Junction
 #flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
-#flatpak install -y flathub org.kde.kwrite
-#flatpak install -y flathub com.authy.Authy
+flatpak install -y flathub org.kde.kwrite
+flatpak install -y flathub com.authy.Authy
+flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
 
 #Signal auto-start and .desktop config
 if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
