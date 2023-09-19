@@ -102,7 +102,7 @@ sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
-sudo dnf install -y nautilus-image-converter
+#sudo dnf install -y nautilus-image-converter
 sudo dnf install -y webp-pixbuf-loader #enables webp images in gnome-sushi
 sudo dnf install -y libheif #enables HEIF images in gnome-sushi 
 #sudo dnf install -y alacarte
