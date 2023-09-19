@@ -8,6 +8,7 @@ Cookie AutoDelete config and expressions
 Signal database (I think this is in ~/.var/app)
 Brave settings (~/.var/app and ~/.config)
 Firefox settings (~/.mozilla)
+Librewolf settings (~/.librewolf)
 Webcam photos
 Music
 
@@ -91,4 +92,6 @@ sponsorblock
 return youtube dislikes
 tampermonkey
   -youtube age restriction bypass script: https://github.com/zerodytrash/Simple-YouTube-Age-Restriction-Bypass/
+
+Spotify login can be fixed by copying url directly from Junction into a browser
 
