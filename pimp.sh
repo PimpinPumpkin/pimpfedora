@@ -1,5 +1,5 @@
 #!/bin/bash
-#First written on May 15th, 2022. Currently using Fedora Workstation 38 on x64 hardware.
+#First written on May 15th, 2022. Currently using Fedora Workstation 39 on x64 hardware.
 
 #App date must be imported
 #Computer name needs to be set
@@ -96,8 +96,8 @@ pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
 pwsh -c "Install-Module 'ConnectWiseManageAPI'"
 pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
-sudo dnf install -y x264 #enables video in gnome-sushi
-sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch?
+sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
+sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
 sudo dnf install -y openssl
@@ -134,11 +134,11 @@ gsettings set org.gnome.shell.extensions.pop-shell gap-inner uint32 0
 #Install Flatpaks (Fedora 38 enables Flathub by default)
 flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub com.spotify.Client
-flatpak install -y flathub com.bitwarden.desktop
+#flatpak install -y flathub com.bitwarden.desktop #As of 2024, I am using the bitwarden appimage due to app blurryness
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
 flatpak install -y flathub org.standardnotes.standardnotes
-flatpak install -y flathub com.github.neithern.g4music
+#flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.World.PikaBackup
 flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
@@ -149,6 +149,7 @@ flatpak install -y flathub re.sonny.Junction
 flatpak install -y flathub org.kde.kwrite
 flatpak install -y flathub com.authy.Authy
 flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
+flatpak install -y flathub it.mijorus.gearlever #used for generating a .desktop file for bitwarden appimage
 
 #Signal auto-start and .desktop config
 if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
@@ -178,8 +179,8 @@ sudo dnf localinstall -y icedtea.rpm
 sudo rm icedtea.rpm
 
 #Install triple buffering patch from COPR
-sudo dnf copr enable -y calcastor/gnome-patched
-sudo dnf --refresh upgrade -y
+#sudo dnf copr enable -y calcastor/gnome-patched
+#sudo dnf --refresh upgrade -y
 
 #-------------
 #Add hardware video acceleration (RPMFusion must be enabled)
