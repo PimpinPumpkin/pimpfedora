@@ -96,10 +96,26 @@ pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
 pwsh -c "Install-Module 'ConnectWiseManageAPI'"
 pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
+#Gstreamer stuff from https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
+sudo dnf install -y gstreamer1-devel
+sudo dnf install -y gstreamer1-plugins-base-tools
+sudo dnf install -y gstreamer1-doc
+sudo dnf install -y gstreamer1-plugins-base-devel
+sudo dnf install -y gstreamer1-plugins-good
+sudo dnf install -y gstreamer1-plugins-good-extras
+sudo dnf install -y gstreamer1-plugins-ugly
+sudo dnf install -y gstreamer1-plugins-bad-free
+sudo dnf install -y gstreamer1-plugins-bad-free-devel
+sudo dnf install -y gstreamer1-plugins-bad-free-extras
+###
+
+#Unsure if this is truly needed as of Jan 27th 2024; I feel like installing everything from gstreamer should make this obsolete...
 sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
 sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
 sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
 sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
+###
+
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
 #sudo dnf install -y nautilus-image-converter
