@@ -182,11 +182,11 @@ fi
 
 # Check if Signal Flatpak is installed
 if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
-    # If so, make sure we haven't already patched the .desktop file before we attempt to add the --use-tray-icon argument
-    if ! grep -q "--use-tray-icon" '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'; then
-        # Configure Signal to use tray icon if manually launched
-        sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-    fi
+    # Clean up: remove all instances of --use-tray-icon first
+    sudo sed -i 's/ --use-tray-icon//g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+    
+    # Add one instance of --use-tray-icon at the correct place
+    sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
 fi
 
 
