@@ -180,14 +180,15 @@ Type=Application
 X-GNOME-Autostart-enabled=true" | sudo tee --append /home/$USER/.config/autostart/org.signal.Signal.desktop
 fi
 
-#Check if Signal Flatpak is installed
+# Check if Signal Flatpak is installed
 if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
-	#If so, make sure we haven't already patched the .desktop file before we attempt to add the --use-tray-icon argument
-	if ! [ grep -q "%U @@ --use-tray-icon" '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
-    		#Configure Signal to use tray icon if manually launched
-    		sudo sed -i 's/%U @@/%U @@ --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-	fi
+    # If so, make sure we haven't already patched the .desktop file before we attempt to add the --use-tray-icon argument
+    if ! grep -q "--use-tray-icon" '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'; then
+        # Configure Signal to use tray icon if manually launched
+        sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+    fi
 fi
+
 
 #Install Iced-Tea for JNLP files/ConnectWise
 curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
