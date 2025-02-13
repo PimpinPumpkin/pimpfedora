@@ -1,7 +1,7 @@
 #!/bin/bash
-#First written on May 15th, 2022. Currently using Fedora Workstation 39 on x64 hardware.
+#First written on May 15th, 2022. Currently using Fedora Workstation 41 on x64 hardware.
 
-#App date must be imported
+#App data must be imported
 #Computer name needs to be set
 #Power mode needs to be set to performance
 #Default applications
@@ -9,10 +9,10 @@
 #Keyboard shortcuts configuration
 #if you're on a laptop, install gesture improvements extension
 
-#Make lockscreen 200% scaled
+#Make lockscreen 200% scaled (now we have fractional scaling so idk)
 #https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
-sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
-sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+#sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
+#sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 
 #Set natural scrolling
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
@@ -31,14 +31,14 @@ gsettings set org.gnome.desktop.session idle-delay 900
 gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
-#Install and set fonts
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-sudo cp -a $SCRIPT_DIR/Google-sans /usr/share/fonts
-sudo cp -a $SCRIPT_DIR/SourceCode-Pro /usr/share/fonts
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
-gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
+#Install and set fonts (Gnome 48 moves to Adwaita Sans/Inter which looks fine)
+#SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#sudo cp -a $SCRIPT_DIR/Google-sans /usr/share/fonts
+#sudo cp -a $SCRIPT_DIR/SourceCode-Pro /usr/share/fonts
+#gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
+#gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+#gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
+#gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
 
 #Enable more parallel DNF downloads (bad if internet is slow)
 echo max_parallel_downloads=10 | sudo tee --append /etc/dnf/dnf.conf
@@ -97,23 +97,23 @@ pwsh -c "Install-Module 'ConnectWiseManageAPI'"
 pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
 #Gstreamer stuff from https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
-sudo dnf install -y gstreamer1-devel
-sudo dnf install -y gstreamer1-plugins-base-tools
-sudo dnf install -y gstreamer1-doc
-sudo dnf install -y gstreamer1-plugins-base-devel
-sudo dnf install -y gstreamer1-plugins-good
-sudo dnf install -y gstreamer1-plugins-good-extras
-sudo dnf install -y gstreamer1-plugins-ugly
-sudo dnf install -y gstreamer1-plugins-bad-free
-sudo dnf install -y gstreamer1-plugins-bad-free-devel
-sudo dnf install -y gstreamer1-plugins-bad-free-extras
+#sudo dnf install -y gstreamer1-devel
+#sudo dnf install -y gstreamer1-plugins-base-tools
+#sudo dnf install -y gstreamer1-doc
+#sudo dnf install -y gstreamer1-plugins-base-devel
+#sudo dnf install -y gstreamer1-plugins-good
+#sudo dnf install -y gstreamer1-plugins-good-extras
+#sudo dnf install -y gstreamer1-plugins-ugly
+#sudo dnf install -y gstreamer1-plugins-bad-free
+#sudo dnf install -y gstreamer1-plugins-bad-free-devel
+#sudo dnf install -y gstreamer1-plugins-bad-free-extras
 ###
 
-#Unsure if this is truly needed as of Jan 27th 2024; I feel like installing everything from gstreamer should make this obsolete...
-sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
-sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
-sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
-sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
+#As of Feb 13 2025, gnome-sushi is able to play h264 and (but no h265) at least on an intel gpu without any additional packages.
+#sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
+#sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
+#sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
+#sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
 ###
 
 sudo dnf install -y openssl
@@ -125,8 +125,8 @@ sudo dnf install -y libheif #enables HEIF images in gnome-sushi
 #sudo dnf install -y pavucontrol
 sudo dnf install -y alsa-plugins-pulseaudio #fixes Davinci Resolve audio lag
 sudo dnf install -y glib2-devel #gdm-settings
-sudo dnf install -y java-11-openjdk #JNLP IcedTea
-sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
+#sudo dnf install -y java-11-openjdk #JNLP IcedTea
+#sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
 sudo dnf install -y librewolf
 sudo dnf install -y firefox
 sudo dnf install -y yt-dlp
@@ -150,6 +150,7 @@ gsettings set org.gnome.shell.extensions.pop-shell gap-inner uint32 0
 #Install Flatpaks (Fedora 38 enables Flathub by default)
 flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub com.spotify.Client
+flatpak install -y flathub io.github.flattool.Ignition
 #flatpak install -y flathub com.bitwarden.desktop #As of 2024, I am using the bitwarden appimage due to app blurryness
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
