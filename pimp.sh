@@ -154,17 +154,17 @@ flatpak install -y flathub io.github.flattool.Ignition
 #flatpak install -y flathub com.bitwarden.desktop #As of 2024, I am using the bitwarden appimage due to app blurryness
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
-flatpak install -y flathub org.standardnotes.standardnotes
+#flatpak install -y flathub org.standardnotes.standardnotes As of 2024, I am using the appimage due to blurryness
 #flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.World.PikaBackup
-flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
+#flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
 flatpak install -y flathub org.chromium.Chromium
 #flatpak install -y flathub io.github.seadve.Mousai
 flatpak install -y flathub re.sonny.Junction
 #flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
 flatpak install -y flathub org.kde.kwrite
-flatpak install -y flathub com.authy.Authy
+#flatpak install -y flathub com.authy.Authy
 flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
 flatpak install -y flathub it.mijorus.gearlever #used for generating a .desktop file for bitwarden appimage
 
@@ -181,20 +181,22 @@ Type=Application
 X-GNOME-Autostart-enabled=true" | sudo tee --append /home/$USER/.config/autostart/org.signal.Signal.desktop
 fi
 
+
+#As of Feb 13 2025, I am now using Ignition to handle all application startups
 # Check if Signal Flatpak is installed
-if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
-    # Clean up: remove all instances of --use-tray-icon first
-    sudo sed -i 's/ --use-tray-icon//g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+#if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
+#    # Clean up: remove all instances of --use-tray-icon first
+#    sudo sed -i 's/ --use-tray-icon//g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
     
-    # Add one instance of --use-tray-icon at the correct place
-    sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-fi
+#    # Add one instance of --use-tray-icon at the correct place
+#    sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+#fi
 
 
 #Install Iced-Tea for JNLP files/ConnectWise
-curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
-sudo dnf localinstall -y icedtea.rpm
-sudo rm icedtea.rpm
+#curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
+#sudo dnf localinstall -y icedtea.rpm
+#sudo rm icedtea.rpm
 
 #Install triple buffering patch from COPR
 #sudo dnf copr enable -y calcastor/gnome-patched
