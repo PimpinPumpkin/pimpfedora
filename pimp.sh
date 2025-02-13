@@ -92,9 +92,9 @@ curl -s https://api.github.com/repos/PowerShell/vscode-powershell/releases/lates
 | xargs curl -L -o vscode-powershell.vsix
 codium --install-extension vscode-powershell.vsix
 rm vscode-powershell.vsix
-pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
-pwsh -c "Install-Module 'ConnectWiseManageAPI'"
-pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
+#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
+#pwsh -c "Install-Module 'ConnectWiseManageAPI'"
+#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
 #Gstreamer stuff from https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
 #sudo dnf install -y gstreamer1-devel
