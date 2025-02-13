@@ -151,10 +151,10 @@ gsettings set org.gnome.shell.extensions.pop-shell gap-inner uint32 0
 flatpak install -y flathub com.mattjakeman.ExtensionManager
 flatpak install -y flathub com.spotify.Client
 flatpak install -y flathub io.github.flattool.Ignition
-#flatpak install -y flathub com.bitwarden.desktop #As of 2024, I am using the bitwarden appimage due to app blurryness
+flatpak install -y flathub com.bitwarden.desktop 
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
-#flatpak install -y flathub org.standardnotes.standardnotes As of 2024, I am using the appimage due to blurryness
+flatpak install -y flathub org.standardnotes.standardnotes
 #flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.World.PikaBackup
