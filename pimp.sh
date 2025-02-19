@@ -9,11 +9,6 @@
 #Keyboard shortcuts configuration
 #if you're on a laptop, install gesture improvements extension
 
-#Make lockscreen 200% scaled (now we have fractional scaling so idk)
-#https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
-#sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
-#sudo glib-compile-schemas /usr/share/glib-2.0/schemas
-
 #Set natural scrolling
 gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true
 gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll true
@@ -140,6 +135,11 @@ fi
 Anything below this line is outdated/no longer used
 ##############################
 
+#Make lockscreen 200% scaled (now we have automatically setting fractional scaling which should set GDM as well)
+#https://itectec.com/ubuntu/ubuntu-scaling-gnome-login-screen-on-hidpi-display/
+#sudo sed -i '/<key name="scaling-factor" type="u">/{n;s/<default>.*<\/default>/<default>2<\/default>/}' '/usr/share/glib-2.0/schemas/org.gnome.desktop.interface.gschema.xml'
+#sudo glib-compile-schemas /usr/share/glib-2.0/schemas
+
 #sudo dnf install -y alacarte
 #sudo dnf install -y pavucontrol
 #sudo dnf install -y glib2-devel #gdm-settings
@@ -150,9 +150,6 @@ Anything below this line is outdated/no longer used
 #sudo dnf install -y pavucontrol
 
 #flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
-
-
-
 
 #Install and set fonts (Gnome 48 moves to Adwaita Sans/Inter which looks fine)
 #SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
