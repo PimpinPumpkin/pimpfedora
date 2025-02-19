@@ -31,15 +31,6 @@ gsettings set org.gnome.desktop.session idle-delay 900
 gsettings set org.gnome.desktop.screensaver idle-activation-enabled 'true'
 gsettings set org.gnome.desktop.screensaver lock-enabled 'true'
 
-#Install and set fonts (Gnome 48 moves to Adwaita Sans/Inter which looks fine)
-#SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-#sudo cp -a $SCRIPT_DIR/Google-sans /usr/share/fonts
-#sudo cp -a $SCRIPT_DIR/SourceCode-Pro /usr/share/fonts
-#gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
-#gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
-#gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
-#gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
-
 #Enable more parallel DNF downloads (bad if internet is slow)
 echo max_parallel_downloads=10 | sudo tee --append /etc/dnf/dnf.conf
 
@@ -58,7 +49,7 @@ EOF
 #Install Powershell Prerecs
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 VERSION=$(cat /etc/fedora-release | grep -o '[0-9]' | awk '{printf "%s", $0}')
-#For some reason only the CentOS 8 package works (as of April 1st 2023. Test on Fedora 36, 37, and 38)
+#For some reason only the CentOS 8 package works (as of April 1st 2023 & Feb 13th 2025. Test on Fedora 36, 37, 38, and 41)
 #MSPKGRPM=https://packages.microsoft.com/config/fedora/$VERSION/packages-microsoft-prod.rpm
 MSPKGRPM=https://packages.microsoft.com/config/centos/8/packages-microsoft-prod.rpm
 sudo rpm -Uvh $MSPKGRPM 
@@ -92,41 +83,12 @@ curl -s https://api.github.com/repos/PowerShell/vscode-powershell/releases/lates
 | xargs curl -L -o vscode-powershell.vsix
 codium --install-extension vscode-powershell.vsix
 rm vscode-powershell.vsix
-#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
-#pwsh -c "Install-Module 'ConnectWiseManageAPI'"
-#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
-
-#Gstreamer stuff from https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
-#sudo dnf install -y gstreamer1-devel
-#sudo dnf install -y gstreamer1-plugins-base-tools
-#sudo dnf install -y gstreamer1-doc
-#sudo dnf install -y gstreamer1-plugins-base-devel
-#sudo dnf install -y gstreamer1-plugins-good
-#sudo dnf install -y gstreamer1-plugins-good-extras
-#sudo dnf install -y gstreamer1-plugins-ugly
-#sudo dnf install -y gstreamer1-plugins-bad-free
-#sudo dnf install -y gstreamer1-plugins-bad-free-devel
-#sudo dnf install -y gstreamer1-plugins-bad-free-extras
-###
-
-#As of Feb 13 2025, gnome-sushi is able to play h264 and (but no h265) at least on an intel gpu without any additional packages.
-#sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
-#sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
-#sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
-#sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
-###
 
 sudo dnf install -y openssl
 sudo dnf install -y gnome-shell-extension-pop-shell xprop
-#sudo dnf install -y nautilus-image-converter
 sudo dnf install -y webp-pixbuf-loader #enables webp images in gnome-sushi
 sudo dnf install -y libheif #enables HEIF images in gnome-sushi 
-#sudo dnf install -y alacarte
-#sudo dnf install -y pavucontrol
 sudo dnf install -y alsa-plugins-pulseaudio #fixes Davinci Resolve audio lag
-sudo dnf install -y glib2-devel #gdm-settings
-#sudo dnf install -y java-11-openjdk #JNLP IcedTea
-#sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
 sudo dnf install -y librewolf
 sudo dnf install -y firefox
 sudo dnf install -y yt-dlp
@@ -155,52 +117,97 @@ flatpak install -y flathub com.bitwarden.desktop
 flatpak install -y flathub com.brave.Browser
 flatpak install -y flathub org.signal.Signal
 flatpak install -y flathub org.standardnotes.standardnotes
-#flatpak install -y flathub com.github.neithern.g4music
 flatpak install -y flathub com.github.rafostar.Clapper
 flatpak install -y flathub org.gnome.World.PikaBackup
-#flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
 flatpak install -y flathub org.chromium.Chromium
-#flatpak install -y flathub io.github.seadve.Mousai
+flatpak install -y flathub io.github.seadve.Mousai
 flatpak install -y flathub re.sonny.Junction
-#flatpak install -y flathub org.gnome.gitlab.somas.Apostrophe
 flatpak install -y flathub org.kde.kwrite
-#flatpak install -y flathub com.authy.Authy
 flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
-flatpak install -y flathub it.mijorus.gearlever #used for generating a .desktop file for bitwarden appimage
+flatpak install -y flathub it.mijorus.gearlever #used for generating a .desktop file for appimages
 
-#Signal auto-start and .desktop config
-if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
-sudo mkdir -p ~/.config/autostart
-sudo echo "[Desktop Entry]
-Name=Start Signal in Tray
-GenericName=signal-start
-Comment=Start Signal in Tray
-Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop --file-forwarding org.signal.Signal @@u %U @@ --start-in-tray
-Terminal=false
-Type=Application
-X-GNOME-Autostart-enabled=true" | sudo tee --append /home/$USER/.config/autostart/org.signal.Signal.desktop
+#Configure Signal .desktop file with run in background enabled
+# Check if Signal Flatpak is installed
+if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
+    # Clean up: remove all instances of --use-tray-icon first
+    sudo sed -i 's/ --use-tray-icon//g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
+    
+    # Add one instance of --use-tray-icon at the correct place
+    sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
 fi
 
 
-#As of Feb 13 2025, I am now using Ignition to handle all application startups
-# Check if Signal Flatpak is installed
-#if [ -f '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop' ]; then
-#    # Clean up: remove all instances of --use-tray-icon first
-#    sudo sed -i 's/ --use-tray-icon//g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-    
-#    # Add one instance of --use-tray-icon at the correct place
-#    sudo sed -i 's/%U/%U --use-tray-icon/g' '/var/lib/flatpak/exports/share/applications/org.signal.Signal.desktop'
-#fi
+Anything below this line is outdated/no longer used
+##############################
 
+#sudo dnf install -y alacarte
+#sudo dnf install -y pavucontrol
+#sudo dnf install -y glib2-devel #gdm-settings
+#sudo dnf install -y java-11-openjdk #JNLP IcedTea
+#sudo dnf install -y java-11-openjdk-devel #JNLP IcedTea
+#sudo dnf install -y nautilus-image-converter
+#sudo dnf install -y alacarte
+#sudo dnf install -y pavucontrol
+
+#flatpak install -y io.github.realmazharhussain.GdmSettings #causes issues sometimes
+
+
+
+
+#Install and set fonts (Gnome 48 moves to Adwaita Sans/Inter which looks fine)
+#SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+#sudo cp -a $SCRIPT_DIR/Google-sans /usr/share/fonts
+#sudo cp -a $SCRIPT_DIR/SourceCode-Pro /usr/share/fonts
+#gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Google Sans 18pt Bold 11'
+#gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 10'
+#gsettings set org.gnome.desktop.interface document-font-name 'Google Sans 18pt Bold 11'
+#gsettings set org.gnome.desktop.interface font-name 'Google Sans 18pt Bold 11'
+
+#Install ConnectWise extension for VScode:
+#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Trusted"
+#pwsh -c "Install-Module 'ConnectWiseManageAPI'"
+#pwsh -c "Set-PSRepository -Name 'PSGallery' -InstallationPolicy Untrusted"
 
 #Install Iced-Tea for JNLP files/ConnectWise
 #curl https://kojipkgs.fedoraproject.org//packages/icedtea-web/2.0.0/pre.0.3.alpha16.patched1.1.fc36.2/x86_64/icedtea-web-2.0.0-pre.0.3.alpha16.patched1.1.fc36.2.x86_64.rpm --output icedtea.rpm
 #sudo dnf localinstall -y icedtea.rpm
 #sudo rm icedtea.rpm
 
-#Install triple buffering patch from COPR
-#sudo dnf copr enable -y calcastor/gnome-patched
-#sudo dnf --refresh upgrade -y
+#Gstreamer stuff from https://gstreamer.freedesktop.org/documentation/installing/on-linux.html?gi-language=c
+#sudo dnf install -y gstreamer1-devel
+#sudo dnf install -y gstreamer1-plugins-base-tools
+#sudo dnf install -y gstreamer1-doc
+#sudo dnf install -y gstreamer1-plugins-base-devel
+#sudo dnf install -y gstreamer1-plugins-good
+#sudo dnf install -y gstreamer1-plugins-good-extras
+#sudo dnf install -y gstreamer1-plugins-ugly
+#sudo dnf install -y gstreamer1-plugins-bad-free
+#sudo dnf install -y gstreamer1-plugins-bad-free-devel
+#sudo dnf install -y gstreamer1-plugins-bad-free-extras
+###
+
+#As of Feb 13 2025, gnome-sushi is able to play h264 and (but no h265) at least on an intel gpu without any additional packages.
+#sudo dnf install -y x264 #enables video in gnome-sushi. Seems there's an issue on install on 39, but things work...
+#sudo dnf install -y ffmpeg #maybe unneeded if using va-api patch? Seems there's an issue on install on 39, but things work...
+#sudo dnf install -y gstreamer1-libav #maybe unneeded if using va-api patch?
+#sudo dnf install -y gstreamer1-plugin-openh264 #ditto, but not sure - needed for h264 in gnome-sushi
+###
+
+
+#As of Feb 13 2025, I am now using Ignition to handle all application startups
+#if ! [ -f /home/$USER/.config/autostart/org.signal.Signal.desktop ]; then
+#sudo mkdir -p ~/.config/autostart
+#sudo echo "[Desktop Entry]
+#Name=Start Signal in Tray
+#GenericName=signal-start
+#Comment=Start Signal in Tray
+#Exec=/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=signal-desktop --file-forwarding org.signal.Signal @@u %U @@ --start-in-tray
+#Terminal=false
+#Type=Application
+#X-GNOME-Autostart-enabled=true" | sudo tee --append /home/$USER/.config/autostart/org.signal.Signal.desktop
+#fi
+
+
 
 #-------------
 #Add hardware video acceleration (RPMFusion must be enabled)
